@@ -1,0 +1,9 @@
+insurance:
+  retry:
+    max-attempts: 3
+    delay-in-millis: 10
+
+maintenance:
+  retry:
+    max-attempts: 3
+    delay-in-millis: 10

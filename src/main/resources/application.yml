@@ -1,0 +1,16 @@
+micronaut:
+  application:
+    name: vehicle-status-service
+
+insurance:
+  base-url: https://insurance.com
+  retry:
+    max-attempts: 3
+    delay-in-millis: 2000
+
+maintenance:
+  base-url: https://topgarage.com
+  retry:
+    max-attempts: 3
+    delay-in-millis: 2000
+
