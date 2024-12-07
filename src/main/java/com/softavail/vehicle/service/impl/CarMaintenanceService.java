@@ -5,7 +5,6 @@ import com.softavail.vehicle.dto.FeatureType;
 import com.softavail.vehicle.dto.MaintenanceScore;
 import com.softavail.vehicle.dto.RequestId;
 import com.softavail.vehicle.dto.Vin;
-import com.softavail.vehicle.exception.MaintenanceFrequencyNotFoundException;
 import com.softavail.vehicle.exception.MaintenanceNotFoundException;
 import com.softavail.vehicle.service.CarMaintenance;
 import com.softavail.vehicle.utils.RetryHandler;
@@ -34,12 +33,13 @@ public class CarMaintenanceService implements CarMaintenance {
                 .doFirst(() -> log.info("{} request calls to external Maintenance API service", requestId.value()))
                 .switchIfEmpty(
                         Mono.error(
-                                () -> new MaintenanceFrequencyNotFoundException(HttpStatus.NOT_FOUND, maintenanceExceptionMessage)
+                                () -> new MaintenanceNotFoundException(HttpStatus.NOT_FOUND, maintenanceExceptionMessage)
                         )
                 )
                 .doOnError(HttpClientResponseException.class, httpClientResponseException -> {
                     log.error("{} Maintenance service unavailable ", httpClientResponseException.getServiceId());
                 })
+                .doOnError(throwable -> log.error("Invalid Maintenance Service response"))
                 .onErrorMap(throwable -> !(throwable instanceof HttpClientResponseException),
                         throwable -> new MaintenanceNotFoundException(HttpStatus.NOT_FOUND, maintenanceExceptionMessage))
                 .flatMap(MaintenanceScoreMapping::getMaintenanceScore)

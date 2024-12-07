@@ -23,7 +23,9 @@ public class CarStatusCheckerService implements CarStatusChecker {
         Mono<Boolean> accidentFree = carAccident.getInsurance(requestId, vin, featureTypes);
         Mono<MaintenanceScore> maintenanceScore = carMaintenance.getMaintenance(requestId, vin, featureTypes);
         return Mono.zip(accidentFree, maintenanceScore)
-                .map(tuple -> new CarStatusResponse(requestId.value(), vin.value(), tuple.getT1(), tuple.getT2().name().toLowerCase()));
+                .map(tuple -> new CarStatusResponse(requestId.value(), vin.value(), tuple.getT1(),
+                        tuple.getT2().name().toLowerCase())
+                );
     }
 
     private List<FeatureType> toFeatureEnum(List<String> stringFeatures) {

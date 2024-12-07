@@ -1,3 +1,7 @@
+## Vehicle-Status-Service documentation
+
+- [Swagger-ui](http://localhost:8080)
+
 ## Micronaut 4.7.1 Documentation
 
 - [User Guide](https://docs.micronaut.io/4.7.1/guide/index.html)

@@ -11,11 +11,8 @@ import java.util.stream.Stream;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FeatureUtils {
     public static boolean isValid(@Nullable List<String> values) {
-        if (values == null || values.isEmpty()) {
-            return false;
-        }
 
-        return values.stream()
+        return values != null && !values.isEmpty() && values.stream()
                 .allMatch(value -> Stream.of(FeatureType.values())
                         .anyMatch(feature -> value.equalsIgnoreCase(feature.name()))
                 );
