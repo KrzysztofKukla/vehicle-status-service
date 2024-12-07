@@ -38,7 +38,7 @@ class CarMaintenanceServiceTest {
     @Test
     void shouldReturnUnknownMaintenanceScoreWhenMaintenanceIsNotGivenInRequest() {
         carMaintenanceService.getMaintenance(requestId, vin, List.of(FeatureType.ACCIDENT_FREE))
-                .as(content -> StepVerifier.withVirtualTime(() -> (content)))
+                .as(content -> StepVerifier.create(content))
                 .expectNext(MaintenanceScore.UNKNOWN)
                 .then(() -> BDDMockito.then(maintenanceClient).shouldHaveNoInteractions())
                 .verifyComplete();

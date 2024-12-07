@@ -2,7 +2,7 @@ package com.softavail.vehicle.service.impl;
 
 import com.softavail.vehicle.dto.MaintenanceFrequencyResponse;
 import com.softavail.vehicle.dto.MaintenanceScore;
-import com.softavail.vehicle.exception.MaintenanceFrequencyNotFoundException;
+import com.softavail.vehicle.exception.MaintenanceNotFoundException;
 import org.junit.jupiter.api.Test;
 import reactor.test.StepVerifier;
 
@@ -34,7 +34,7 @@ class MaintenanceScoreMappingTest {
 
         MaintenanceScoreMapping.getMaintenanceScore(invalidMaintenanceFrequency)
                 .as(maintenanceScore -> StepVerifier.create(maintenanceScore))
-                .expectError(MaintenanceFrequencyNotFoundException.class)
+                .expectError(MaintenanceNotFoundException.class)
                 .verify();
     }
 }

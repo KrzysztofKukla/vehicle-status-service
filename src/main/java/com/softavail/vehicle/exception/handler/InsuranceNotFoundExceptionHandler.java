@@ -21,6 +21,7 @@ public class InsuranceNotFoundExceptionHandler implements ExceptionHandler<Insur
         String path = request.getUri().getPath();
         InvalidCarStatusResponse invalidCarStatusResponse =
                 new InvalidCarStatusResponse(path, insuranceNotFoundException.getMessage());
-        return HttpResponse.notFound(invalidCarStatusResponse);
+        return HttpResponse.notFound()
+                .body(invalidCarStatusResponse);
     }
 }
